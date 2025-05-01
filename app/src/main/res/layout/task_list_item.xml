@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#29B6F6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <ImageView
+                android:id="@+id/imageViewStar"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_star"
+                app:tint="#FFD700" />
+
+            <TextView
+                android:id="@+id/textViewTaskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Generated Task 1"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imageViewDelete"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_delete"
+                app:tint="#FF5252" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Small Description for the generated Task"
+            android:textColor="#E0E0E0"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/textViewTaskTopic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Topic"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imageViewTaskStatus"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_online"
+                app:tint="#00E676" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

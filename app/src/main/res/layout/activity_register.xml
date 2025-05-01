@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#03A9F4"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lets get you"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setup!"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_profile"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <EditText
+        android:id="@+id/editTextRegisterUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/editTextConfirmEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/editTextRegisterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <EditText
+        android:id="@+id/editTextPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create new Account"
+        android:textColor="@color/black"
+        android:backgroundTint="#4CAF50"
+        android:padding="12dp"
+        android:textAllCaps="false" />
+
+</LinearLayout>

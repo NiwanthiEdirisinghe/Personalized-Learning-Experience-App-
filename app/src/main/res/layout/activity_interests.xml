@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#03A9F4">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/textViewTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Interests"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/textViewSelectedCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You may select up to 10 topics (0 selected)"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/topicsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:textColor="@color/black"
+        android:backgroundTint="#4CAF50"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:textAllCaps="false" />
+
+</LinearLayout>
