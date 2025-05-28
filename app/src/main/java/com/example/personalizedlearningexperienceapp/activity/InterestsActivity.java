@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,11 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.personalizedlearningexperienceapp.util.DBHelper;
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;

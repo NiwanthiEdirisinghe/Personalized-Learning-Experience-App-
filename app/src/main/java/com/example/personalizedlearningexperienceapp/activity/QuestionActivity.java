@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.personalizedlearningexperienceapp.entity.QuestionResult;
+import com.example.personalizedlearningexperienceapp.util.ApiClient;
+import com.example.personalizedlearningexperienceapp.util.DBHelper;
+import com.example.personalizedlearningexperienceapp.adapter.QuestionAdapter;
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.entity.Question;
+import com.example.personalizedlearningexperienceapp.entity.Quiz;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -53,11 +62,9 @@ public class QuestionActivity extends AppCompatActivity {
         recyclerViewQuestions.setLayoutManager(new LinearLayoutManager(this));
 
         showLoading(true);
-
         buttonSubmitAnswer.setEnabled(false);
 
         loadQuiz(taskTopic);
-
         buttonSubmitAnswer.setOnClickListener(view -> handleSubmit());
     }
 
@@ -98,16 +105,100 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void handleSubmit() {
+        if (!areAllQuestionsAnswered()) {
+            Toast.makeText(this, "Please answer all questions before submitting", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         int correctAnswers = currentQuiz.getCorrectAnswersCount();
-        dbHelper.saveQuizResult(userId, taskTopic, correctAnswers);
+        int totalQuestions = currentQuiz.getQuestions().size();
+
+        List<QuestionResult> questionResults = createQuestionResults();
+
+        dbHelper.saveQuizResultWithQuestions(userId, taskTopic, correctAnswers, totalQuestions, questionResults);
 
         Intent intent = new Intent(QuestionActivity.this, ResultsActivity.class);
         intent.putExtra("SCORE", correctAnswers);
         intent.putExtra("QUIZ", currentQuiz);
         intent.putExtra("USER_ID", userId);
         intent.putExtra("USERNAME", userName);
-        intent.putExtra("TOTAL", currentQuiz.getQuestions().size());
+        intent.putExtra("TOTAL", totalQuestions);
         startActivity(intent);
         finish();
+    }
+
+    private List<QuestionResult> createQuestionResults() {
+        List<QuestionResult> questionResults = new ArrayList<>();
+
+        if (currentQuiz == null || currentQuiz.getQuestions() == null) {
+            return questionResults;
+        }
+
+        List<Question> questions = currentQuiz.getQuestions();
+
+        for (int i = 0; i < questions.size(); i++) {
+            Question question = questions.get(i);
+
+            String userAnswerText = getUserAnswerText(question);
+            String correctAnswerText = getCorrectAnswerText(question);
+
+            QuestionResult result = new QuestionResult(
+                    i + 1,
+                    question.getQuestionText(),
+                    userAnswerText,
+                    correctAnswerText
+            );
+
+            questionResults.add(result);
+        }
+
+        return questionResults;
+    }
+
+    private String getUserAnswerText(Question question) {
+        String userAnswer = question.getUserAnswer();
+        List<String> options = question.getOptions();
+
+        if (userAnswer == null || options == null || options.isEmpty()) {
+            return "No answer";
+        }
+
+        switch (userAnswer) {
+            case "A": return options.size() > 0 ? options.get(0) : "No answer";
+            case "B": return options.size() > 1 ? options.get(1) : "No answer";
+            case "C": return options.size() > 2 ? options.get(2) : "No answer";
+            case "D": return options.size() > 3 ? options.get(3) : "No answer";
+            default: return "No answer";
+        }
+    }
+
+    private String getCorrectAnswerText(Question question) {
+        String correctAnswer = question.getCorrectAnswer();
+        List<String> options = question.getOptions();
+
+        if (correctAnswer == null || options == null || options.isEmpty()) {
+            return "Unknown";
+        }
+
+        switch (correctAnswer) {
+            case "A": return options.size() > 0 ? options.get(0) : "Unknown";
+            case "B": return options.size() > 1 ? options.get(1) : "Unknown";
+            case "C": return options.size() > 2 ? options.get(2) : "Unknown";
+            case "D": return options.size() > 3 ? options.get(3) : "Unknown";
+            default: return "Unknown";
+        }
+    }
+
+    private boolean areAllQuestionsAnswered() {
+        if (currentQuiz == null || currentQuiz.getQuestions() == null) {
+            return false;
+        }
+
+        for (Question question : currentQuiz.getQuestions()) {
+            if (question.getUserAnswer() == null || question.getUserAnswer().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

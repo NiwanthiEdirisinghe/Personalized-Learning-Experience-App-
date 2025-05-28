@@ -1,11 +1,20 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.personalizedlearningexperienceapp.util.DBHelper;
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.adapter.TaskAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private TextView welcomeTextView;
     private RecyclerView recyclerViewTasks;
+    private ImageView profileImageView;
     private DBHelper dbHelper;
     private long userId;
     private String username;
@@ -59,33 +69,122 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        welcomeTextView = findViewById(R.id.textViewWelcome);
+        recyclerViewTasks = findViewById(R.id.recyclerViewTasks);
+        profileImageView = findViewById(R.id.profileImageView);
+
         userId = getIntent().getLongExtra("USER_ID", -1);
         username = getIntent().getStringExtra("USERNAME");
 
         dbHelper = new DBHelper(this);
-
         userInterests = dbHelper.getUserInterests(userId);
-
-        welcomeTextView = findViewById(R.id.textViewWelcome);
-        recyclerViewTasks = findViewById(R.id.recyclerViewTasks);
 
         welcomeTextView.setText("Hello,\n" + username);
 
         recyclerViewTasks.setLayoutManager(new LinearLayoutManager(this));
 
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProfileDialog();
+            }
+        });
+
         loadPersonalizedTasks();
     }
 
+    private void showProfileDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Menu Options");
+
+        String[] options = {
+                "👤 View Profile",
+                "📝 View History",
+                "⭐ Upgrade Account",
+                "🚪 Logout"
+        };
+
+        builder.setItems(options, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    openProfile();
+                    break;
+                case 1:
+                    openHistory();
+                    break;
+                case 2:
+                    openUpgrade();
+                    break;
+                case 3:
+                    showLogoutConfirmation();
+                    break;
+            }
+        });
+
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void openProfile() {
+        try {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("USER_ID", userId);
+            intent.putExtra("USERNAME", username);
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast("ProfileActivity not found. Please create ProfileActivity.java");
+        }
+    }
+
+    private void openHistory() {
+        try {
+            Intent intent = new Intent(this, HistoryActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast("HistoryActivity not found. Please create HistoryActivity.java");
+        }
+    }
+
+    private void openUpgrade() {
+        try {
+            Intent intent = new Intent(this, UpgradeAccountActivity.class);
+            intent.putExtra("USER_ID", userId);
+            intent.putExtra("USERNAME", username);
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast("UpgradeAccountActivity not found. Please create UpgradeAccountActivity.java");
+        }
+    }
+
+    private void showLogoutConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
+        builder.setNegativeButton("No", null);
+        builder.show();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
     private void loadPersonalizedTasks() {
-
         List<Map<String, String>> tasksList = new ArrayList<>();
-
 
         if (userInterests != null && userInterests.length > 0) {
             int taskNo = 1;
             for (String interest : userInterests) {
                 Map<String, String> task = new HashMap<>();
-                task.put("title", "Generated Task "+taskNo++);
+                task.put("title", "Generated Task " + taskNo++);
                 task.put("description", topicDescriptions.get(interest));
                 task.put("topic", interest);
                 tasksList.add(task);
@@ -94,10 +193,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         if (tasksList.isEmpty()) {
             String[] defaultTopics = {"Algorithms", "Data Structures", "Web Development", "Testing"};
+            int taskNo = 1;
             for (String topic : defaultTopics) {
                 Map<String, String> task = new HashMap<>();
-                task.put("title", "Generated Task 1");
-                task.put("description", "Small Description for the generated Task");
+                task.put("title", "Generated Task " + taskNo++);
+                task.put("description", topicDescriptions.get(topic));
                 task.put("topic", topic);
                 tasksList.add(task);
             }

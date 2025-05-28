@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#03A9F4"
-    tools:context=".RegisterActivity">
+    tools:context=".activity.RegisterActivity">
 
     <TextView
         android:layout_width="match_parent"
