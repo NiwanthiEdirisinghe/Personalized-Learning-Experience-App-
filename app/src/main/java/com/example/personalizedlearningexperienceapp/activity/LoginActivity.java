@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.personalizedlearningexperienceapp.util.DBHelper;
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.entity.User;
 
 public class LoginActivity extends AppCompatActivity {
 

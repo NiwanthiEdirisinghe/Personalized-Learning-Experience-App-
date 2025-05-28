@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -81,5 +81,17 @@ public class Quiz implements Serializable {
             }
         }
         return count;
+    }
+
+    public double getScorePercentage() {
+        int total = getTotalQuestions();
+        if (total == 0) {
+            return 0.0;
+        }
+        return (getCorrectAnswersCount() * 100.0) / total;
+    }
+
+    public boolean isPassed() {
+        return getScorePercentage() >= 60.0; // 60% passing grade
     }
 }

@@ -1,7 +1,10 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.util;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.personalizedlearningexperienceapp.entity.Question;
+import com.example.personalizedlearningexperienceapp.entity.Quiz;
 
 import org.json.JSONArray;
 import org.json.JSONException;

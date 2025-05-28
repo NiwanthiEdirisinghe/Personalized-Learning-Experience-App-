@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.activity.QuestionActivity;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +22,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private final Context context;
     private final List<Map<String, String>> tasksList;
     private final long userId;
-
     private final String userName;
 
     public TaskAdapter(Context context, List<Map<String, String>> tasksList, long userId, String userName) {
@@ -43,7 +45,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.textViewTaskTitle.setText(task.get("title"));
         holder.textViewTaskDescription.setText(task.get("description"));
 
+        // Set task topic if available
+        if (holder.textViewTaskTopic != null && task.get("topic") != null) {
+            holder.textViewTaskTopic.setText(task.get("topic"));
+        }
 
+        // Task click listener - navigate to QuestionActivity
         holder.itemView.setOnClickListener(v -> {
             String taskTitle = task.get("title");
             String taskDescription = task.get("description");
@@ -58,11 +65,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             context.startActivity(intent);
         });
 
-
+        // Delete button click listener
         holder.imageViewDelete.setOnClickListener(v -> {
             tasksList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, tasksList.size());
+        });
+
+        // Star button click listener (for favorites)
+        holder.imageViewStar.setOnClickListener(v -> {
+            // Toggle star status - you can implement favorite functionality here
+            // For now, just change the icon
+            holder.imageViewStar.setSelected(!holder.imageViewStar.isSelected());
         });
     }
 

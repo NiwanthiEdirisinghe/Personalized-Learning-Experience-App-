@@ -40,4 +40,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // QR Code generation for profile sharing
+    implementation(libs.core)
+    implementation(libs.zxing.android.embedded)
+
+    // Google Play Services for payment integration
+    implementation("com.google.android.gms:play-services-wallet:19.4.0")
 }

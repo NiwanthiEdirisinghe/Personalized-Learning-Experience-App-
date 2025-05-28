@@ -1,7 +1,7 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.entity;
 
 import java.io.Serializable;
-import java.util.List;
+
 public class User implements Serializable {
     private long id;
     private String username;

@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.personalizedlearningexperienceapp.R;
+import com.example.personalizedlearningexperienceapp.entity.Question;
 
 import java.util.List;
 

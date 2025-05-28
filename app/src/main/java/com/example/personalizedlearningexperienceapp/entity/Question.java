@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperienceapp;
+package com.example.personalizedlearningexperienceapp.entity;
 
 import java.io.Serializable;
 import java.util.List;
